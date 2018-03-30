@@ -1,0 +1,57 @@
+@import "../../styles/main";
+
+.wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.count {
+    position: absolute;
+    left: @leading-800;
+    top: @leading-600;
+    color: @gray-500;
+    
+}
+
+.number {
+    display: inline-block;
+    width: @leading-500;
+    height: @leading-500;
+    line-height: @leading-500;
+    text-align: center;
+    background: @gray-400;
+    font-size: @font-size-300;
+    color: @white;
+    border-radius: 50%;
+    margin-right: @leading-50;
+}
+
+.headline {
+    margin-top: @leading-600;
+    margin-left: @gutter-900;
+    margin-right: @gutter-900;
+    h1 {
+        font-size: @font-size-500;
+        line-height: @leading-400;
+        color: @black;
+    }
+    h2 {
+        font-size: @font-size-300;
+        color: @gray-400;
+        font-weight: normal;
+    }
+    h3{
+        float: right;
+        font-size: @font-size-300;
+        color: @gray-400;
+        font-weight: normal;
+    }
+}
+
+.input {
+    border: none;
+    margin-left: @leading-50;
+    width: 80%;
+}

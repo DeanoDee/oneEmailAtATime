@@ -1,2 +1,3 @@
-export const SLUG = 'oneEmailAtATime';
+export const ACTIONSLUG = 'inboxZeroAction';
+export const ACTIONCOMPOSE = 'inboxZeroCompose';
 

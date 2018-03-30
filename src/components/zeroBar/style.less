@@ -1,0 +1,63 @@
+@import "../../styles/main";
+
+.wrapper {
+    position: fixed;
+    bottom: 0;
+    left:0;
+    right: 0;
+    border-top: 1px solid @gray-300;
+    background: @white;
+    
+    
+    display: flex;
+	flex-direction: column;
+	width: 100%;
+	flex-flow: row wrap;
+	justify-content: space-around;
+    > ul {
+        width: @width-lg;
+        padding: 0 @gutter-900;
+        > li {
+            width: 20%;
+            display: inline-block;
+            padding: 0;
+            margin: 0;
+            text-align: center;
+            
+        }
+    }
+}
+
+.button {
+    
+    text-align: center;
+    font-size: @font-size-300;
+    text-transform: uppercase;
+    color: @brand;
+    line-height: @leading-600;
+    padding: 0 14px !important;
+    &:hover {
+        background: @light-brand;
+    }
+    span {
+        font-weight: normal !important;
+        text-transform: uppercase !important;
+        display: block;
+        line-height: 1;
+        color: @brand;
+        padding: 0 14px;
+        margin-top: -2px;
+    }
+}
+
+.subbutton {
+    display: block;
+    width: 100%;
+    text-align: left;
+    font-size: @font-size-200;
+    color: @black;
+    &:hover {
+        background: @light-brand;
+        color: @black;
+    }
+}

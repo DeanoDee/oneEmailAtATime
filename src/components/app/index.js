@@ -1,39 +1,103 @@
 import { h, Component } from 'preact';
-import { provide } from 'preact-context-provider';
-import { withIntl } from '../../enhancers';
-import wire from 'wiretie';
+import createAction from '../zeroAction';
+import createCompose from '../zeroCompose';
+import { ACTIONCOMPOSE } from '../../constants';
 import style from './style';
 
-export default function createApp(context) {
+class App extends Component {
 
-	@withIntl
-	@provide({ zimbraComponents: context.components })
-	@wire('zimbraComponents', null, ({ Sidebar }) => ({ Sidebar }))
-	class App extends Component {
-
-		render({ Sidebar }) {
-			return (
-				<div class={style.wrapper}>
-					{/*Example of using component from ZimbraX client, in this case, Sidebar*/}
-					<Sidebar>
-						<h3>Links</h3>
-						<ol>
-							<li>
-								<a href="https://lonni.me">lonni.me</a>
-							</li>
-							<li>
-								<a href="https://github.com/zimbra/zimlet-cli">zimlet-cli</a>
-							</li>
-						</ol>
-					</Sidebar>
-					<div class={style.main}>
-						Hello World
-					</div>
-				</div>
-			);
-		}
+	onDone = () => {
+		console.log('moving to done');
 	}
+	
+	onRespondBuild = (route) => {
+		return (sendTo) => {
+			console.log(sendTo);
+			return() => {
+				console.log("buddy", sendTo);
+				this.setState({ sendTo, sendBody: null, compose: true });
+				// route(`/${ACTIONCOMPOSE}`);
+			}
+		}
+	};
 
-	return App;
+	onDelete = () => {
+		console.log('delete that');
+	};
 
+	onDelegate = () => {
+		this.setState({ sendTo: null, sendBody:null, compose: true});
+	};
+
+	onDefer = () => {
+		console.log('go next');
+	};
+	
+	onChange = (sendTo) => {
+		event.preventDefault();
+		this.setState({ sendTo });
+	}
+	
+	onBodyChange = (sendBody) => {
+		event.preventDefault();
+		this.setState({ sendBody });
+	}
+	
+	onSend = () => {
+		this.setState({ compose: false });
+	}
+	
+	onCancel = () => {
+		this.setState({ compose: false });
+	}
+	
+	constructor() {
+		super();
+		this.state = { to: null, all:null, from: null, body: null, sendTo: null, sendBody: null };
+	}
+    
+	componentWillMount() {
+		
+		this.setState({ action:null, compose:null, context:null });
+	}
+    
+	render(props) {
+		const { action, context } = props;
+		const {  to, from, body, all, sendTo, sendBody, compose } = this.state;
+		const ZeroAction = createAction(context);
+		const ZeroCompose = createCompose(context);
+		const onRespond = this.onRespondBuild(context.route);
+		return (
+			<div class={style.wrapper}>
+				<div class={style.main}>
+					{!compose && action && (
+						<ZeroAction
+							to={to}
+							from={from}
+							body={body}
+							all={all}
+							onDone={this.onDone}
+							onRespond={onRespond}
+							onDelete={this.onDelete}
+							onDelegate={this.onDelegate}
+							onDefer={this.onDefer}
+						/>
+					)}
+					{compose && (
+						<ZeroCompose
+							to={sendTo}
+							from={from}
+							body={sendBody}
+							onChange={this.onChange}
+							onSend={this.onSend}
+							onCancel={this.onCancel}
+							onBodyChange={this.onBodyChange}
+						 />
+					)}
+				</div>
+			</div>
+		);
+	}
 }
+
+export default App;

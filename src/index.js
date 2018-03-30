@@ -1,13 +1,12 @@
 import { h } from 'preact';
 import { Text } from 'preact-i18n';
-import { SLUG } from './constants';
+import { ACTIONSLUG, ACTIONCOMPOSE } from './constants';
 import { withIntl } from './enhancers';
-import createApp from './components/app';
+import App from './components/App';
 
 export default function Zimlet(context) {
 	const { plugins, components } = context;
 	const exports = {};
-	const App = createApp(context);
 	
 	exports.init = function init() {
 		plugins.register('slot::menu', MenuItem);
@@ -17,7 +16,8 @@ export default function Zimlet(context) {
 	// Register a new route with the preact-router instance
 	function Router() {
 		return [
-			<App path={`/${SLUG}`} />
+			<App path={`/${ACTIONSLUG}`} action context={context}/>,
+			<App path={`/${ACTIONCOMPOSE}`} compose context={context}/>
 		];
 	}
 
@@ -25,8 +25,8 @@ export default function Zimlet(context) {
 	const MenuItem = withIntl(() => (
 		<components.MenuItem
 			responsive
-			icon="fa:code"
-			href={`/${SLUG}`}
+			icon="fa:tachometer"
+			href={`/${ACTIONSLUG}`}
 		>
 			<Text id="oneEmailAtATime.menuItem" />
 		</components.MenuItem>
