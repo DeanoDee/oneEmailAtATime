@@ -3,10 +3,15 @@ import style from './style';
 
 const ZeroText = ({
     body
-}) => (
-    <div class={style.wrapper}>
-        {body}
-    </div>
-)
+}) => {
+    console.log("body", body);
+    return (
+        <div class={style.wrapper}>
+            {body.map(
+                (paragraph)=>(<p>{paragraph}</p>)
+            )}
+        </div>
+    )
+}
 
 export default ZeroText;

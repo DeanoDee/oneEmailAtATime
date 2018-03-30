@@ -11,7 +11,6 @@ const ZeroHeader = ({
     onChange
 }) => {
     const formatedInboxCount = inboxCount > 99 ? '99+' : inboxCount;
-    console.log(to);
     return (
         <div class={style.wrapper}>
             <div class={style.count}>

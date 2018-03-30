@@ -26,14 +26,16 @@ export default function createCompose(context) {
 			onSend,
 			onCancel,
 			onBodyChange,
+			inboxCount,
+			title,
 			to,
 			body
 		}) {
 			return (
 				<div class={style.wrapper}>
 					<ZeroHeader
-						inboxCount={this.defaults.inboxCount}
-						title={this.defaults.title}
+						inboxCount={inboxCount}
+						title={title}
 						to={to}
 						onChange={onChange}
 					/>
